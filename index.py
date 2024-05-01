@@ -3,7 +3,7 @@ from telegram import InputMediaPhoto, InputMediaVideo
 from telegram.ext import Updater, MessageHandler, Filters, CallbackContext
 
 # Your TELEGRAM_BOT_TOKEN here
-TELEGRAM_BOT_TOKEN = '6947133911:AAHk6Estm_cjuTsjnYmw-Jq4QZa01R3EsNo'
+TELEGRAM_BOT_TOKEN = 'Your TELEGRAM_BOT_TOKEN'
 L = instaloader.Instaloader()
 
 def send_media_to_telegram(media_urls, chat_id):
