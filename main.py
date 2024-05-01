@@ -1,9 +1,12 @@
+import os
 import instaloader
 from telegram import InputMediaPhoto, InputMediaVideo
-from telegram.ext import Updater, MessageHandler, Filters, CallbackContext
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext
+from keep_alive import keep_alive
+keep_alive()
 
 # Your TELEGRAM_BOT_TOKEN here
-TELEGRAM_BOT_TOKEN = 'Your TELEGRAM_BOT_TOKEN'
+TELEGRAM_BOT_TOKEN = os.environ.get("token")
 L = instaloader.Instaloader()
 
 def send_media_to_telegram(media_urls, chat_id):
@@ -37,9 +40,9 @@ def send_media_to_telegram(media_urls, chat_id):
         updater.bot.send_media_group(chat_id=chat_id, media=media)
         if mediaa!=[] :
             updater.bot.send_media_group(chat_id=chat_id, media=mediaa)
-        if mediaaa !=[] : 
+        if mediaaa !=[] :
             updater.bot.send_media_group(chat_id=chat_id, media=mediaa)
-        
+
     except Exception as e:
         print("Error sending media:", str(e))
 
@@ -121,10 +124,14 @@ def handle_messages(update, context: CallbackContext) -> None:
     else:
         # Reply if the message doesn't contain a valid Instagram post URL
         message.reply_text("Please send a valid Instagram post URL.")
-
+def start(update, context):
+    update.message.reply_text("Salut, ce bot peut *télécharger des photos et vidéos* à partir d'une *publication Instagram*. Envoyez simplement le lien d'une publication",parse_mode='Markdown')
 def main() -> None:
     updater = Updater(TELEGRAM_BOT_TOKEN)
     dispatcher = updater.dispatcher
+
+    # Handle /start command
+    dispatcher.add_handler(CommandHandler("start", start))
 
     # Handle messages
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_messages))
