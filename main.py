@@ -6,7 +6,7 @@ from keep_alive import keep_alive
 keep_alive()
 
 # Your TELEGRAM_BOT_TOKEN here
-TELEGRAM_BOT_TOKEN = os.environ.get("token")
+TELEGRAM_BOT_TOKEN = os.environ.get('token')
 L = instaloader.Instaloader()
 
 def send_media_to_telegram(media_urls, chat_id):
